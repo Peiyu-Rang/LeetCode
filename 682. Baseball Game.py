@@ -20,4 +20,3 @@ class Solution:
                 record.append(int(o))
                 
         return sum(record)
-        
