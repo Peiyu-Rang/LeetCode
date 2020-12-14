@@ -11,13 +11,11 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         n = len(nums)
-        i = 0
-        count = 0
-        while(count < n):
-            if nums[i] == 0:
-                nums.pop(i)
-                nums.append(0)
-            else:
-                i+=1
-                
-            count+=1
+        non0 = 0
+        p = 0
+        while (p < n):
+            if nums[p] != 0:
+                nums[p], nums[non0] = nums[non0], nums[p]
+                non0 +=1
+            
+            p +=1

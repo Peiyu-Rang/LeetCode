@@ -7,26 +7,18 @@ Created on Sat Aug  8 10:03:09 2020
 
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        dic = {}
-        ans = 0
-        for num in nums:
-            if num in dic:
-                dic[num] +=1
-            else:
-                dic[num] = 1
+        from collections import Counter
         
-        print(dic)
-        if k == 0:
-            for key in dic:
-                if dic[key] >=2:
+        hash_nums = Counter(nums)
+        ans = 0
+        
+        if k != 0:
+            for key in hash_nums:
+                if key+k in hash_nums:
                     ans +=1
-        elif k < 0:
-            return 0
         else:
-            for key in dic:
-                if key - k in dic:
+            for key in hash_nums:
+                if hash_nums[key] > 1:
                     ans += 1
                 
         return ans
-                

@@ -12,20 +12,18 @@ Created on Wed Aug 12 22:17:31 2020
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        arr = []
-        while(head):
-            arr.append(head.val)
+        cont = []
+        while head:
+            cont.append(head.val)
             head = head.next
             
-        n = len(arr)
-        i = 0
-        j = n-1
-        if n < 2:
-            return True
-        while(i < j):
-            if arr[i] != arr[j]:
+        n = len(cont)
+        left = 0
+        right = n-1
+        while left < right:
+            if cont[left] != cont[right]:
                 return False
-            i +=1
-            j -=1
-        
+            left +=1
+            right -=1
+            
         return True

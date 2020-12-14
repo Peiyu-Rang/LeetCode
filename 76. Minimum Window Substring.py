@@ -1,41 +1,44 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) < len(t):
+        if not t or not s:
             return ''
         
-        n = len(s)
         tDic = {}
         for i in t:
-            if i in tDic:
-                tDic[i] +=1
-            else:
-                tDic[i] = 1
-        
-        
+            tDic[i] = tDic.get(i, 0) + 1
+            
+        filteredS = []
+        for i, c in enumerate(s):
+            if c in tDic:
+                filteredS.append((i,c))
+                
         left = 0
         right = 0
-        candidateCount = {}
         required = len(tDic)
         requiredMet = 0
-        ans = (float('inf'), None, None)
+        candidateCount = {}
+        ans = (float('inf'),None,None)
         
-        while (right < n):
-            c = s[right]
-            candidateCount[c] = candidateCount.get(c,0) + 1
-            if c in tDic and candidateCount[c] == tDic[c]:
+        while(right < len(filteredS)):
+            c = filteredS[right][1]
+            candidateCount[c] = candidateCount.get(c,0)+1
+            
+            if candidateCount[c] == tDic[c]:
                 requiredMet +=1
             
             while(left <= right and requiredMet == required):
-                if right - left + 1 < ans[0]:
-                    ans = (right - left + 1, left, right)
-                c = s[left]
+                c = filteredS[left][1]
+                start = filteredS[left][0]
+                end = filteredS[right][0]
+                
+                if end - start + 1 < ans[0]:
+                    ans = (end-start+1, start, end)
+                
                 candidateCount[c] -=1
-                
-                if c in tDic and candidateCount[c] < tDic[c]:
+                if candidateCount[c] < tDic[c]:
                     requiredMet -=1
-                    
                 left +=1
-                
+            
             right +=1
             
         return '' if ans[0] == float('inf') else s[ans[1]: ans[2] + 1]
