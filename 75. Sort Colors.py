@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec 23 22:54:19 2020
+
+@author: Caven
+"""
+
+
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left = 0
+        right = len(nums)-1
+        
+        curr = 0
+        
+        while curr <= right:
+            if nums[curr] == 0:
+                nums[left], nums[curr] = nums[curr], nums[left]
+                left +=1
+                curr +=1
+            elif nums[curr] == 2:
+                nums[curr], nums[right] = nums[right], nums[curr]
+                right -=1
+            else:
+                curr +=1
