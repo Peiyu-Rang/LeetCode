@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['1004. Max Consecutive Ones III.py', '61. Rotate List.py']
+recent_files = ['1004. Max Consecutive Ones III.py', '61. Rotate List.py', '845. Longest Mountain in Array.py', '159. Longest Substring with At Most Two Distinct Characters.py', '17. Letter Combinations of a Phone Number.py', '124. Binary Tree Maximum Path Sum.py']
 
