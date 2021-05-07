@@ -1,22 +1,41 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Aug 21 17:52:37 2020
+Created on Thu May  6 16:37:16 2021
 
 @author: Caven
 """
 
+
 class Solution:
-    def sortedSquared(self, A: List[int]) -> List[int]:
-        n = len(A)
-        i = 0
-        j = n-1
-        ans = []
-        while i<=j:
-            if A[i]**2 < A[j]**2:
-                ans = [A[j]**2] + ans
-                j -=1
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        pos = []
+        neg = []
+        for i in nums:
+            if i <= 0:
+                neg.append(i)
             else:
-                ans = [A[i]**2] + ans
-                i +=1
+                pos.append(i)
+                
+        neg = neg[::-1]
+        n_pos = len(pos)
+        n_neg = len(neg)
         
-        return ans
+        p_pos = 0
+        p_neg = 0
+        
+        res = []
+        while p_pos < n_pos or p_neg < n_neg:
+            if p_pos >= n_pos:
+                res.append(neg[p_neg] ** 2)
+                p_neg +=1
+            elif p_neg >= n_neg:
+                res.append(pos[p_pos] ** 2)
+                p_pos +=1
+            elif pos[p_pos] ** 2 >= neg[p_neg] ** 2:
+                res.append(neg[p_neg] ** 2)
+                p_neg +=1
+            else:
+                res.append(pos[p_pos] ** 2)
+                p_pos +=1
+                
+        return res
