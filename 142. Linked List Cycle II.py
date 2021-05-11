@@ -14,31 +14,17 @@ Created on Sun Dec 13 22:02:43 2020
 
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
-        def getIntersect(head):
-            slow = head
-            fast = head
+        fast = head
+        slow = head
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
             
-            while fast is not None and fast.next is not None:
-                slow = slow.next
-                fast = fast.next.next
-                
-                if slow == fast:
-                    return slow
-                
-            return None
-        
-        if head is None:
-            return None
-        
-        intersect = getIntersect(head)
-        
-        if intersect is None:
-            return None
-        
-        p1 = head
-        p2 = intersect
-        while p1 != p2:
-            p1 = p1.next
-            p2 = p2.next
-            
-        return p1
+            if fast == slow:
+                p = head
+                while p != slow:
+                    p = p.next
+                    slow = slow.next
+                    
+                return p
