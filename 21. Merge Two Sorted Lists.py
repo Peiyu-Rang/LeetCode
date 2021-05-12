@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Aug  4 20:42:49 2020
-
-@author: Caven
-"""
-
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -12,20 +5,23 @@ Created on Tue Aug  4 20:42:49 2020
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        prehead = head = ListNode()
+        preH = ListNode()
         
-        while l1 and l2:
-            if l1.val < l2.val:
-                head.next = l1
+        p = preH
+        
+        while l1 or l2:
+            if not l1:
+                p.next = l2
+                l2 = l2.next
+            elif not l2:
+                p.next = l1
+                l1 = l1.next
+            elif l1.val < l2.val:
+                p.next = l1
                 l1 = l1.next
             else:
-                head.next = l2
+                p.next = l2
                 l2 = l2.next
-            head = head.next
-        
-        if l1:
-            head.next = l1
-        else:
-            head.next = l2
-        
-        return prehead.next
+            p = p.next
+            
+        return preH.next
