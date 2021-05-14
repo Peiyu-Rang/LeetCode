@@ -12,25 +12,27 @@ Created on Sun Jan 24 22:30:29 2021
 #         self.next = next
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        n = 1
+        
         if not head:
-            return None
-        if not head.next:
             return head
         
-        
-        old_tail = head
-        n = 1
-        while old_tail.next:
-            old_tail = old_tail.next
+        p = head
+        while p.next:
             n +=1
+            p = p.next
+            
+        p.next = head
         
-        old_tail.next = head
         
-        new_tail = head
-        for i in range(n-k%n -1):
-            new_tail = new_tail.next
-        new_head = new_tail.next
+            
+        cut = n - k%n - 1
+        p = head
+        for i in range(cut):
+            p = p.next
+            
+        new_head = p.next
         
-        new_tail.next = None
+        p.next = None
         
         return new_head
