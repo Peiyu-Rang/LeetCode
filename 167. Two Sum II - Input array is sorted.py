@@ -8,14 +8,13 @@ Created on Sat Aug  8 08:56:33 2020
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         n = len(numbers)
-        left = 0
-        right = n-1
+        i = 0
+        j = n-1
         
-        
-        while left < right:
-            if numbers[left] + numbers[right] > target:
-                right -=1
-            elif numbers[left] + numbers[right] < target:
-                left +=1
+        while j < n:
+            if numbers[i] + numbers[j] < target:
+                i +=1
+            elif numbers[i] + numbers[j] > target:
+                j -=1
             else:
-                return [left+1, right+1]
+                return [i + 1, j + 1]

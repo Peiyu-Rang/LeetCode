@@ -6,56 +6,32 @@ Created on Mon Dec 14 21:06:10 2020
 """
 
 class Solution:
-    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         n = len(nums)
-        if n == 0:
-            return 0
         
-        left = 0
-        right = 0
-        Sum = nums[0]
-        ans = float('Inf')
+        i,j = 0,0
+        total = nums[0]
+        min_len = None
         
-        while (left <= n-1 and right <= n-1):
-            if Sum < s:
-                if right < n-1:
-                    right +=1
-                    Sum += nums[right]
+        while j < n and i < n:
+            if total < target:
+                if j < n-1:
+                    j +=1
+                    total += nums[j]
                 else:
                     break
             else:
-                if right - left +1 < ans:
-                    ans = right - left +1
+                if not min_len:
+                    min_len = j - i + 1
                 else:
-                    Sum -= nums[left]
-                    left +=1
-                    
-                    
-        return 0 if ans == float('Inf') else ans
-            
+                    if j - i +1 < min_len:
+                        min_len = j - i + 1
+                    else:
+                        total -= nums[i]
+                        i +=1
+                
+                
+        return min_len if min_len else 0
         
         
-        '''
-        n = len(nums)
         
-        left = 0
-        right = 0
-        
-        ans = float('Inf')
-        
-        while (left <= n-1 and right <= n-1):
-            sub = nums[left:right+1]
-            if sum(sub) < s:
-                if right <= n-1:
-                    right +=1
-                else:
-                    break
-            else:
-                if right - left +1 < ans:
-                    ans = right - left +1
-                left +=1
-        
-        return 0 if ans == float('Inf') else ans
-        '''
-        
-        '''

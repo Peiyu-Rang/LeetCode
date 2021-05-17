@@ -9,16 +9,14 @@ class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         n = len(haystack)
         m = len(needle)
-        if m == 0:
-            return 0
-        if m == n:
-            if haystack == needle:
-                return 0
-            else:
-                return -1
         
-        for i in range(n-m+1):
+        i = 0
+        while i + m <= n:
             if haystack[i:i+m] == needle:
                 return i
             
+            else:
+                i +=1
+                
         return -1
+        

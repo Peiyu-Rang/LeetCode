@@ -7,24 +7,25 @@ Created on Sun Aug 16 17:43:45 2020
 
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        dic = {}
-        for v1, v2 in zip(s,t):
-            if v1 in dic:
-                if dic[v1] == v2:
+        seen = {}
+        for ss, tt in zip(s,t):
+            if ss in seen:
+                if seen[ss] == tt:
                     continue
                 else:
                     return False
             else:
-                dic[v1] = v2
+                seen[ss] = tt
                 
-        dic = {}
-        for v1, v2 in zip(t,s):
-            if v1 in dic:
-                if dic[v1] == v2:
+        seen = {}
+        for ss, tt in zip(t,s):
+            if ss in seen:
+                if seen[ss] == tt:
                     continue
                 else:
                     return False
             else:
-                dic[v1] = v2
-            
+                seen[ss] = tt
+        
+        
         return True

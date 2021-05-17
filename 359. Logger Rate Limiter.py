@@ -11,7 +11,7 @@ class Logger:
         """
         Initialize your data structure here.
         """
-        self.dic = {}
+        self.timestamp_dic = {}
         
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
@@ -20,15 +20,16 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message not in self.dic:
-            self.dic[message] = timestamp
-            return True
-        elif self.dic[message] + 10 > timestamp:
-            return False
-        else:
-            self.dic[message] = timestamp
-            return True
         
+        if message in self.timestamp_dic:
+            if self.timestamp_dic[message] + 10 <= timestamp:
+                self.timestamp_dic[message] = timestamp
+                return True
+            else:
+                return False
+        else:
+            self.timestamp_dic[message] = timestamp
+            return True
 
 
 # Your Logger object will be instantiated and called as such:

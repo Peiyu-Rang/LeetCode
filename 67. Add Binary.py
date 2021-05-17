@@ -7,37 +7,37 @@ Created on Sat Aug 15 16:20:01 2020
 
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        na = len(a)
-        nb = len(b)
-        ans = ''
-        if na > nb:
-            a, b = b, a
-            na = len(a)
-            nb = len(b)
+        res = ''
+        n1 = len(a)
+        n2 = len(b)
+        
+        i = n1-1
+        j = n2-1
+        
         carry = 0
-        i = -1
-        while (-i <= nb):
-            if (-i <= na):
-                dig = int(a[i]) + int(b[i]) + carry
-                if dig >=2:
-                    dig %= 2
-                    carry = 1
-                else:
-                    carry = 0
+        
+        while i >=0  or j >= 0:
+            if i < 0:
+                x = 0
+                y = int(b[j])
+                j -=1
                 
-                ans = str(dig) + ans
+            elif j < 0:
+                x = int(a[i])
+                y = 0
+                i-=1
             else:
-                dig = int(b[i]) + carry
-                if dig >=2:
-                    dig %= 2
-                    carry = 1
-                else:
-                    carry = 0
+                x= int(a[i])
+                y= int(b[j])
+                j-=1
+                i-=1
                 
-                ans = str(dig) + ans
-            i -=1
+            total = (carry + x + y) % 2
+            carry = (carry + x + y) // 2
+            res = str(total) + res
+            
+        if carry > 0:
+            res = str(carry) + res
         
-        if carry ==1:
-            ans = '1' + ans
-        
-        return ans
+        return res
+                

@@ -6,20 +6,19 @@ Created on Mon Aug 10 14:44:29 2020
 """
 
 class Solution:
-    def isHappy(self, n:int) -> bool:
-        maxIter = 100
-        count = 0
-        def help(n)：:
-            nStr = str(n)
-            sumSq = 0
-            for l in nStr:
-                sumSq += int(l)*int(l)
-            return sumSq
-        
-        while(count < maxIter):
-            n = help(n)
-            if int(n) ==1:
+    def isHappy(self, n: int) -> bool:
+        seen = set()
+        while True:
+            sq_sum = 0
+            while n > 0:
+                sq_sum += (n % 10) ** 2
+                n = n // 10
+
+            if sq_sum == 1:
                 return True
-            count +=1
-        
-        return False
+            if sq_sum not in seen:
+                seen.add(sq_sum)
+            else:
+                return False
+            
+            n = sq_sum

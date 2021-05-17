@@ -10,11 +10,12 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        left = 0
         n = len(s)
-        right = n-1
         
-        while left < right:
-            s[left], s[right] = s[right], s[left]
-            left +=1
-            right -=1
+        l = 0
+        r = n-1
+        
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l +=1
+            r -=1

@@ -8,12 +8,9 @@ Created on Mon Dec 14 21:32:10 2020
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        dic = {}
-        
-        n = len(nums)
-        
-        for i in range(n):
-            if target - nums[i] in dic:
-                return [i, dic[target - nums[i]]]
+        seen = {}
+        for i,v in enumerate(nums):
+            if target - v in seen:
+                return [i, seen[target - v]]
             else:
-                dic[nums[i]] = i
+                seen[v] = i

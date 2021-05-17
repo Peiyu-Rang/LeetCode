@@ -7,17 +7,9 @@ Created on Tue Aug 11 21:24:15 2020
 
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        if len(s) == 0:
-            return -1
-        dic = {}
-        for ss in s:
-            if ss in dic:
-                dic[ss] +=1
-            else:
-                dic[ss] = 1
+        counter = Counter(s)
         
-        for key in dic:
-            if dic[key] == 1:
-                return s.index(key)
-            
+        for i,v in enumerate(s):
+            if counter[v] == 1:
+                return i
         return -1
