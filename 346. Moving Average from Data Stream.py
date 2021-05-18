@@ -12,18 +12,29 @@ class MovingAverage:
         """
         Initialize your data structure here.
         """
-        self.size = size
-        self.win = []
+        
+        self.queue = [0] * size
+        self.count = 0
+        self.capacity = size
+        self.total = 0
+        self.head = 0
+        self.tail = 0
         
 
     def next(self, val: int) -> float:
-        self.win.append(val)
-        n = len(self.win)
-        if n < self.size:
-            return 1.0*sum(self.win)/n
+        if self.count < self.capacity:
+            self.queue[self.tail % self.capacity] = val
+            self.tail +=1
+            self.count +=1
+            self.total += val
+            return self.total / self.count
         else:
-            self.win = self.win[-self.size:]
-            return 1.0*sum(self.win)/self.size
+            self.total -= self.queue[(self.tail) % self.capacity]
+            self.queue[(self.tail) % self.capacity] = val
+            self.tail +=1
+            self.total += val
+            return self.total / self.capacity
+        
         
 
 

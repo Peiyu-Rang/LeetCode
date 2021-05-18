@@ -10,15 +10,22 @@ class Solution:
         n = len(s)
         i = 0
         j = 0
-        ans = 0
+        
+        max_len = 0
+        
         seen = set()
-        while(j < n):
-            if s[j] in seen:
-                seen.remove(s[i])
-                i +=1
-            else:
+        
+        if n < 2:
+            return n
+        
+        
+        while j < n:
+            if s[j] not in seen:
                 seen.add(s[j])
                 j +=1
-                ans = max(ans, j-i)
+                max_len = max(j - i, max_len)
+            else:
+                seen.remove(s[i])
+                i += 1
         
-        return ans
+        return max_len
