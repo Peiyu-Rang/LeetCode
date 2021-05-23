@@ -7,23 +7,18 @@ Created on Tue Aug  4 20:44:06 2020
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        cum = []
+        open_p = {'(':')', '[':']', '{':'}'}
+        stack = []
         for ss in s:
-            if ss in '([{':
-                cum.append(ss)
-            else:
-                if len(cum) == 0:
-                    return False
-                if ss == ')' and cum[-1] == '(':
-                    cum.pop()
-                    continue
-                elif ss == ']' and cum[-1] == '[':
-                    cum.pop()
-                    continue
-                elif ss == '}' and cum[-1] == '{':
-                    cum.pop()
+            if ss in open_p:
+                stack.append(ss)
+            elif len(stack) > 0:
+                if ss == open_p[stack.pop()]:
                     continue
                 else:
                     return False
-                
-        return len(cum) == 0
+            else:
+                return False
+        
+        return True if len(stack) == 0 else False
+        

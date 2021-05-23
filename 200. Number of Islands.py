@@ -1,49 +1,37 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 29 16:28:10 2020
-
-@author: Caven
-"""
-from typing import List
-
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        def dfs(grid, r,c):
-            nr = len(grid)
-            nc = len(grid[0])
-            if (r < 0 or r>=nr or c<0 or c >= nc or grid[r][c] == '0'):
-                return
-            
-            grid[r][c] = '0'
-            dfs(grid,r-1,c)
-            dfs(grid,r+1,c)
-            dfs(grid,r,c+1)
-            dfs(grid,r,c-1)
+        m = len(grid)
+        n = len(grid[0])
+        
+        DIRECTION = [[1,0], [-1,0],[0,1],[0,-1]]
         
         
-        nRow = len(grid)
-        if nRow == 0:
-            return 0
-        nCol = len(grid[0])
-        if nCol == 0:
-            return 0
+        n_island = 0
         
-        numIs = 0
-        for r in range(nRow):
-            for c in range(nCol):
+        for r in range(m):
+            for c in range(n):
                 if grid[r][c] == '1':
-                    numIs += 1
-                    dfs(grid, r,c)
+                    n_island +=1
+                    grid[r][c] = '0'
+                    
+                    q = []
+                    q.append((r,c))
+                    
+                    while q:
+                        curr = q.pop(0)
+                        row, col = curr
+                        
+                        for d in DIRECTION:
+                            new_row = row + d[0]
+                            new_col = col + d[1]
+                            
+                            if new_row >= 0 and new_col >= 0 and new_row <m and new_col < n and grid[new_row][new_col] == '1':
+                                q.append((new_row, new_col))
+                                grid[new_row][new_col] = '0'
+                            else:
+                                continue
+                    
+                    
         
-        return numIs
-
-if __name__ == '__main__':
-    grid = [["1","1","1","1","0"],
-          ["1","1","0","1","0"],
-          ["1","1","0","0","0"],
-          ["0","0","0","0","0"]]
-    
-    sol = Solution()
-    res = sol.numIslands(grid)
-    
-    print(res)
+        return n_island
+        
