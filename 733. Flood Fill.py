@@ -1,27 +1,32 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Aug 21 07:54:25 2020
+Created on Sun May 23 22:35:40 2021
 
 @author: Caven
 """
 
+
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
-        nrow = len(image)
-        ncol = len(image[0])
-        color = image[sr][sc]
-        if color == newColor:
+        m = len(image)
+        n = len(image[0])
+        
+        ori_color = image[sr][sc]
+        
+        if ori_color == newColor:
             return image
-        def dfs(r,c):
-            if image[r][c] == color:
-                image[r][c] = newColor
-                if r >=1:
-                    dfs(r-1,c)
-                if r+1 <= nrow-1:
-                    dfs(r+1,c)
-                if c >=1:
-                    dfs(r, c-1)
-                if c+1 <= ncol-1:
-                    dfs(r, c+1)
-        dfs(sr,sc)
-        return image
+        
+        def dfs(image, sr, sc):
+            if (sr < 0 or sc < 0 or sr >= m or sc >= n or image[sr][sc] != ori_color):
+                return
+            
+            image[sr][sc] = newColor
+            
+            dfs(image, sr + 1, sc)
+            dfs(image, sr-1, sc)
+            dfs(image, sr, sc+1)
+            dfs(image, sr, sc-1)
+            
+            return image
+        
+        return dfs(image, sr, sc)
