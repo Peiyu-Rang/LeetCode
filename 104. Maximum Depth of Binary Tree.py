@@ -13,9 +13,10 @@ Created on Sun Aug 16 15:59:01 2020
 #         self.right = right
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
+        
         if not root:
             return 0
-        if not root.left and not root.right:
-            return 1
-        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
         
+        return max(left, right) + 1

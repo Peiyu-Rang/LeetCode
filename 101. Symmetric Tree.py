@@ -13,11 +13,11 @@ Created on Sat Aug 15 16:01:44 2020
 #         self.right = right
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
-        def isMirror(tree1, tree2):
-            if tree1 is None and tree2 is None:
-                return True
-            if tree1 is None or tree2 is None:
-                return False
-            return (tree1.val == tree2.val) and isMirror(tree1.left, tree2.right) and isMirror(tree1.right, tree2.left)
+        def isMirror(t1, t2):
+            if not t1 and not t2: return True
+            elif not t1 or not t2: return False
+            else:
+                return t1.val == t2.val and isMirror(t1.left, t2.right) and isMirror(t1.right, t2.left)
+            
         
         return isMirror(root, root)

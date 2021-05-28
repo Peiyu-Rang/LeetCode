@@ -13,13 +13,10 @@ Created on Thu Oct 15 16:06:52 2020
 #         self.left = left
 #         self.right = right
 class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
         if not root:
             return False
-        
-        sum -= root.val
-        
         if not root.left and not root.right:
-            return sum == 0
+            return root.val == targetSum
         
-        return self.hasPathSum(root.left, sum) or self.hasPathSum(root.right, sum)
+        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
