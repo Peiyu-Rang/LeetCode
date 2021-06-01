@@ -43,4 +43,38 @@ class Solution:
         return root
     
     
-    
+class Solution:
+  
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+        
+        head = None
+        prev = None
+        curr = root
+        
+        while curr:
+            while curr:
+                if curr.left:
+                    if not head:
+                        head = curr.left
+                        prev = curr.left
+                    else:
+                        prev.next = curr.left
+                        prev = prev.next
+                        
+                if curr.right:
+                    if not head:
+                        head = curr.right
+                        prev = curr.right
+                    else:
+                        prev.next = curr.right
+                        prev = prev.next
+                        
+                curr = curr.next
+                
+            curr = head
+            head = None
+            prev = None
+            
+        return root
