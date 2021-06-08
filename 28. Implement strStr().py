@@ -10,13 +10,15 @@ class Solution:
         n = len(haystack)
         m = len(needle)
         
+        if m == 0:
+            return 0
+        
         i = 0
-        while i + m <= n:
+        while i < n-m + 1:
             if haystack[i:i+m] == needle:
                 return i
+            i +=1
             
-            else:
-                i +=1
-                
         return -1
+        
         

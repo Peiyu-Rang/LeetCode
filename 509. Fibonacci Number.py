@@ -16,3 +16,22 @@ class Solution:
             ans.append(ans[-1] + ans[-2])
         
         return ans[-1]
+    
+    
+class Solution:
+    def fib(self, n: int) -> int:
+        memory = {}
+        def recur_fib(N):
+            if N in memory:
+                return memory[N]
+
+            if N < 2:
+                result = N
+            else:
+                result = recur_fib(N-1) + recur_fib(N-2)
+
+            # put result in cache for later reference.
+            memory[N] = result
+            return result
+
+        return recur_fib(n)

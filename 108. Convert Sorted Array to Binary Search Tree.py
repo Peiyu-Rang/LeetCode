@@ -14,8 +14,6 @@ Created on Sun Aug 16 16:29:01 2020
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
         n = len(nums)
-        i = 0
-        j = n-1
         
         def helper(left, right):
             if left > right:
@@ -27,4 +25,4 @@ class Solution:
             
             return node
         
-        return helper(i,j)
+        return helper(0,n-1)
