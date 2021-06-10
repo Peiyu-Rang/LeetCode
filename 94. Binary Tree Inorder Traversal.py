@@ -28,3 +28,19 @@ class Solution:
             curr = curr.right
             
         return res
+    
+    
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        def helper(root, res = []):
+            if root:
+                if root.left:
+                    helper(root.left, res)
+                res.append(root.val)
+                if root.right:
+                    helper(root.right, res)
+                    
+        res = []
+        helper(root, res)
+        return res
