@@ -6,18 +6,18 @@ Created on Fri Aug 21 17:09:03 2020
 """
 
 class Solution:
-    def mySqrt(self, x:int) -> int:
-        if x <2:
-            return x
-        left = 2
-        right = x//2 
+    def mySqrt(self, x: int) -> int:
+        left = 0
+        right = x
+        
+        mid = (left + right) // 2
+        
         while left <= right:
-            mid = left + (right - left)//2
-            if mid * mid < x:
-                left = mid + 1
-            elif mid * mid > x:
+            if mid * mid > x:
                 right = mid -1
-            else:
+            elif mid * mid <= x and (mid + 1) * (mid + 1) > x:
                 return mid
+            else:
+                left = mid +1
             
-        return right
+            mid = (left + right) // 2
