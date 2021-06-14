@@ -8,34 +8,40 @@ Created on Mon May  3 22:37:33 2021
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        left, right = 0, len(nums) -1
+        n = len(nums)
+        left = 0
+        right = n-1
         res = [-1, -1]
-        if right < 0:
-            return res
-        while left <= right:
-            mid  = (left + right) // 2
-            if nums[mid] == target and (mid == 0 or nums[mid - 1] < target):
-                res[0] = mid
-                res[1] = mid
-                break
-            if nums[mid] < target:
-                left = mid + 1
-            elif nums[mid] > target:
-                right = mid -1
-            elif nums[mid] == target and nums[mid-1] == target:
-                right = mid -1
-                
         
-        left = mid + 1
-        right = len(nums) - 1
+        # find lower bound
         while left <= right:
             mid = (left + right) // 2
-            if nums[mid] == target and (mid == len(nums)-1 or nums[mid + 1] > target):
-                res[1] = mid
-                break
-            if nums[mid] > target:
-                right = mid -1
             if nums[mid] == target:
+                if mid -1 < 0 or nums[mid -1] < target:
+                    res[0] = mid
+                    break
+                else:
+                    right = mid
+            elif nums[mid] < target:
+                left = mid +1
+            else:
+                right = mid - 1
+            
+        
+        # find upper bound
+        left = 0
+        right = n-1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                if mid + 1 >= n or nums[mid + 1] > target:
+                    res[1] = mid
+                    break
+                else:
+                    left = mid + 1
+            elif nums[mid] < target:
                 left = mid + 1
+            else:
+                right = mid - 1
                 
         return res
