@@ -37,3 +37,11 @@ class Solution:
             p2 = nums[p2]
 
         return p1
+    
+    
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        counter = Counter(nums)
+        for key in counter:
+            if counter[key] > 1:
+                return key
