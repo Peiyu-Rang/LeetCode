@@ -24,7 +24,6 @@ class Solution:
                     if i < n:
                         num = s[i]
             count = j-i
-            i = j+1
             ans += str(count)+num
             return ans
         

@@ -28,5 +28,24 @@ class Solution:
         return res
                 
             
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = []
+        if numRows == 1:
+            res.append([1])
+            return res
+        if numRows == 2:
+            res.append([1])
+            res.append([1,1])
+            return res
+        res = [[1],[1,1]]
+        for i in range(3, numRows + 1):
+            last = res[-1]
+            new = last + [1]
+            n = len(last)
+            for j in range(n-1, 0, -1):
+                new[j] = last[j] + last[j-1]
+            res.append(new)
             
+        return res            
         

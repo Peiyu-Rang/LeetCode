@@ -7,7 +7,7 @@ Created on Wed Aug 12 22:12:08 2020
 
 class Solution:
     def countPrimes(self, n: int) -> int:
-        if n < 3:
+        if n <=2:
             return 0
         primes = [True] * n
         primes[0] = False

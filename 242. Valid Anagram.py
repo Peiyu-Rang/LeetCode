@@ -30,3 +30,19 @@ class Solution:
                 return False
         
         return True
+    
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        dic_s = Counter(s)
+        dic_t = Counter(t)
+        
+        for key in dic_s:
+            if key not in dic_t:
+                return False
+            elif dic_s[key] != dic_t[key]:
+                return False
+            
+        return True

@@ -23,3 +23,19 @@ class Solution:
             right -=1
         
         return True
+    
+    
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        valid_s = []
+        for ss in s:
+            if ss.isalpha() or ss.isnumeric():
+                valid_s.append(ss.lower())
+                
+        left, right = 0, len(valid_s)-1
+        while left < right:
+            if valid_s[left] != valid_s[right]:
+                return False
+            left +=1
+            right -=1
+        return True

@@ -23,3 +23,24 @@ class Solution:
             ans.append(max(ans[-1], nums[i] + ans[-2]))
             
         return ans[-1]
+    
+    
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0:
+            return 0
+        if n == 1:
+            return nums[0]
+        if n == 2:
+            return max(nums)
+        
+        f_n_2 = nums[0]
+        f_n_1 = max(nums[:2])
+        
+        for i in range(2, n):
+            f_n = max(f_n_2 + nums[i], f_n_1)
+            f_n_2 = f_n_1
+            f_n_1 = f_n
+            
+        return f_n
