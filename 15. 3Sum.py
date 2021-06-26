@@ -37,7 +37,29 @@ class Solution:
                 while low < high and nums[low] == nums[low -1]:
                     low +=1
                     
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        n = len(nums)
+        res = set()
+        for i in range(n-2):
+            left = i + 1
+            right = n-1
             
+            a = nums[i]
+            
+            while left < right:
+                if a + nums[left] + nums[right] == 0:
+                    res.add((a, nums[left], nums[right]))
+                    left +=1
+                elif a + nums[left] + nums[right] > 0:
+                    right -=1
+                else:
+                    left +=1
+        
+        
+        return list(res)
+                
             
             
         

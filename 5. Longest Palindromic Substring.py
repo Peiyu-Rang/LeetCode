@@ -58,3 +58,29 @@ if __name__ == '__main__':
 
     
     print(res)
+    
+    
+    
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return s
+        left = 0
+        right = 0
+        n = len(s)
+        def expandAroundCenter(i, j):
+            while i >= 0 and j < n and s[i] == s[j]:
+                i -=1
+                j +=1
+            return j - i -1
+        for i in range(n):
+            len1 = expandAroundCenter(i, i)
+            len2 = expandAroundCenter(i, i+1)
+            len3 = max(len1, len2)
+            
+            if len3 > right - left:
+                left = i - (len3-1)//2
+                right = i + len3 // 2
+                
+            
+        return s[left:right+1]

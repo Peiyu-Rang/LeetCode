@@ -21,3 +21,15 @@ class Solution:
             res.append(dic[key])
             
         return res
+    
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for _str in strs:
+            letter_count = [0] * 26
+            for s in _str:
+                letter_count[ord(s) - ord('a')] +=1
+            res[tuple(letter_count)].append(_str)
+            
+        return res.values()

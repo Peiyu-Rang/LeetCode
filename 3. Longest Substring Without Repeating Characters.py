@@ -29,3 +29,27 @@ class Solution:
                 i += 1
         
         return max_len
+    
+    
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = set()
+        n = len(s)
+        left = 0
+        right = 0
+        max_len = 0
+        
+        if n < 2:
+            return n
+        
+        while right < n:
+            if s[right] not in seen:
+                seen.add(s[right])
+                right +=1
+                max_len = max(right - left, max_len)
+                
+            else:
+                seen.remove(s[left])
+                left +=1
+                
+        return max_len
