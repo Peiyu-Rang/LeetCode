@@ -44,5 +44,28 @@ class Solution:
         res = []
         helper(n, n, '', res)
         return res
+    
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        if n == 0:
+            return []
+        
+        res = []
+        def backtrack(l, r, comb):
+            if r < l:
+                return
+            if l == 0 and r == 0:
+                res.append(comb)
+                return
+            
+            if l > 0:
+                backtrack(l-1, r, comb + '(')
+            if r > 0:
+                backtrack(l, r-1, comb + ')')
+                
+        
+        backtrack(n, n, '')
+        
+        return res
         
         

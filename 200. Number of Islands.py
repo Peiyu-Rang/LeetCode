@@ -26,3 +26,4 @@ class Solution:
                     dfs(grid, r, c)
                     
         return n_island
+    
