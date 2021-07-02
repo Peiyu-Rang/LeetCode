@@ -38,7 +38,7 @@ class Solution:
                     res[1] = mid
                     break
                 else:
-                    left = mid + 1
+                    left = mid + 1 # pay attention
             elif nums[mid] < target:
                 left = mid + 1
             else:
