@@ -83,3 +83,31 @@ class Solution:
         return -1 if res == float('inf') else res
     
     
+#Bell Ford
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        p = [float('inf') for i in range(n)]
+        c = [float('inf') for i in range(n)]
+        
+        graph = collections.defaultdict(list)
+        
+        for s,d,w in flights:
+            graph[s].append((d,w))
+            
+        
+        for at_most_edges in range(k+2):
+            if at_most_edges == 0:
+                p[src] = 0
+                c[src] = 0
+                continue
+            
+            for node in range(n):
+                for dest, w in graph[node]:
+                    c[dest] = min(c[dest], p[node] + w)
+            
+            p = c[:]
+        
+        
+        return c[dst] if c[dst] < float('inf') else -1
+                        
+        
