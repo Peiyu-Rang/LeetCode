@@ -50,3 +50,41 @@ class Solution(object):
             new_node = new_node.next
 
         return self.visited[head]
+    
+    
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        
+        seen = {}
+        stack = [head]
+        
+        while stack:
+            node = stack.pop()
+            if node not in seen:
+                seen[node] = Node(node.val)
+            
+            if node.next:
+                if node.next not in seen:
+                    seen[node.next] = Node(node.next.val)
+                
+                seen[node].next = seen[node.next]
+                stack.append(node.next)
+                
+            if node.random:
+                if node.random not in seen:
+                    seen[node.random] = Node(node.random.val)
+                
+                seen[node].random = seen[node.random]
+                
+        return seen[head]
