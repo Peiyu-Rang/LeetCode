@@ -4,6 +4,7 @@ Created on Thu Jul 30 21:20:52 2020
 
 @author: Caven
 """
+# DP
 from typing import List
 class Solution:
     def trap(self, height: List[int]) -> int:
@@ -35,4 +36,7 @@ if __name__ == '__main__':
     sol = Solution()
     res = sol.trap(height)
     print(res)
+
+
+# stack
     
