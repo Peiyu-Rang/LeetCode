@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Aug  9 16:09:42 2020
+Created on Sun Aug 29 11:44:47 2021
 
 @author: Caven
 """
+
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -12,18 +13,20 @@ Created on Sun Aug  9 16:09:42 2020
 #         self.left = left
 #         self.right = right
 class Solution:
-    def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        self.ans = 1
-        
-        def depth(node):
-            if not node: return 0
-            l = depth(node.left)
-            r = depth(node.right)
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        max_path = 0
+        def longestPath(node):
+            nonlocal max_path
+            if not node:
+                return 0
             
-            self.ans = max(self.ans, r+l+1)
+            left = longestPath(node.left)
+            right= longestPath(node.right)
             
-            return max(r,l) + 1
+            max_path = max(max_path, left + right)
+            
+            return max(left, right) + 1
         
-        depth(root)
+        longestPath(root)
         
-        return self.ans -1
+        return max_path

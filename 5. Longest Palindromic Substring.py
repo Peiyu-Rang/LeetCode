@@ -4,60 +4,33 @@ Created on Tue Jul 28 19:48:36 2020
 
 @author: Caven
 """
+
+# DP 
+# 	Time Limit Exceeded
 class Solution:
-    def longestPalindrome(s: str) -> str:
+    def longestPalindrome(self, s: str) -> str:
         n = len(s)
-        if n == 0:
-            return ''
-        if n == 1:
-            return s
         
-        P = [[False for i in range(n)] for j in range(n)]
+        dp = [[False] * n for i in range(n)]
         
-        
-        for i in range(n):
-            P[i][i] = True
-            if (i+1)>(n-1):
-                    continue
-            P[i][i+1] = s[i] == s[i+1]
-        
-        def helper(i, j):
-            if i == j:
-                return True
-            if j == i+1:
-                return s[i] == s[j]
-            return P[i+1][j-1] & (s[i] == s[j])
-        
-        for plus in range(n):
-            for L in range(n):
-                if L+plus > n-1:
-                    continue
-                P[L][L+plus] = helper(L,L+plus)
-        
-              
-        # find the true from upper right coner
-        for length in range(n-1, -1, -1):
-            for L in range(n):
-                R = L + length
-                if R > n-1: 
-                    continue
-                if P[L][R]:
-                    return s[L:R+1]
+        for d in range(n):
+            dp[d][d] = True
+            if 0 <= d < n and 0 <= d+1 < n:
+                dp[d][d+1] = s[d] == s[d+1]
             
+        for d in range(2, n):
+            for i in range(n):
+                if 0 <= i+d <= n and 0 <= i+1 <= n and 0 <= i+d-1 <= n and 0 <= i+d < n:
+                    dp[i][i+d] = dp[i+1][i+d-1] and (s[i] == s[i+d])
         
         
-        
-        
-    
-
-
-if __name__ == '__main__':
-    s = 'esbtzjaaijqkgmtaajpsdfiqtvxsgfvijpxrvxgfumsuprzlyvhclgkhccmcnquukivlpnjlfteljvykbddtrpmxzcrdqinsnlsteonhcegtkoszzonkwjevlasgjlcquzuhdmmkhfniozhuphcfkeobturbuoefhmtgcvhlsezvkpgfebbdbhiuwdcftenihseorykdguoqotqyscwymtjejpdzqepjkadtftzwebxwyuqwyeegwxhroaaymusddwnjkvsvrwwsmolmidoybsotaqufhepinkkxicvzrgbgsarmizugbvtzfxghkhthzpuetufqvigmyhmlsgfaaqmmlblxbqxpluhaawqkdluwfirfngbhdkjjyfsxglsnakskcbsyafqpwmwmoxjwlhjduayqyzmpkmrjhbqyhongfdxmuwaqgjkcpatgbrqdllbzodnrifvhcfvgbixbwywanivsdjnbrgskyifgvksadvgzzzuogzcukskjxbohofdimkmyqypyuexypwnjlrfpbtkqyngvxjcwvngmilgwbpcsseoywetatfjijsbcekaixvqreelnlmdonknmxerjjhvmqiztsgjkijjtcyetuygqgsikxctvpxrqtuhxreidhwcklkkjayvqdzqqapgdqaapefzjfngdvjsiiivnkfimqkkucltgavwlakcfyhnpgmqxgfyjziliyqhugphhjtlllgtlcsibfdktzhcfuallqlonbsgyyvvyarvaxmchtyrtkgekkmhejwvsuumhcfcyncgeqtltfmhtlsfswaqpmwpjwgvksvazhwyrzwhyjjdbphhjcmurdcgtbvpkhbkpirhysrpcrntetacyfvgjivhaxgpqhbjahruuejdmaghoaquhiafjqaionbrjbjksxaezosxqmncejjptcksnoq'
-    
-    res = Solution.longestPalindrome(s)
-
-    
-    print(res)
+        for diff in range(n-1, -1, -1):
+            for i in range(n):
+                if 0 <= i < n and 0 <= i+diff < n:
+                    if dp[i][i + diff]:
+                        return s[i:i + diff+1]
+                    
+            
     
     
     

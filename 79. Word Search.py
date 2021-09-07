@@ -10,8 +10,6 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         m = len(board)
         n = len(board[0])
-        idx = 0
-        word_len = len(word)
         
         def backtrack(i,j,word):
             if len(word) == 0:

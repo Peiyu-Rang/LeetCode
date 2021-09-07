@@ -30,3 +30,33 @@ class Solution:
             return image
         
         return dfs(image, sr, sc)
+    
+    
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        if not image:
+            return image
+        directions = [[0,1],[0,-1],[1,0],[-1,0]]
+        m = len(image)
+        n = len(image[0])
+        
+        if image[sr][sc] == newColor:
+            return image
+        
+        cur_color = image[sr][sc]
+        image[sr][sc] = newColor
+        q = deque([(sr,sc)])
+        visited = set()
+        while q:
+            i,j = q.popleft()
+            if (i,j) not in visited:
+                visited.add((i,j))
+            
+            neighbors = [[i+d[0], j+d[1]] for d in directions]
+            
+            for new_i, new_j in neighbors:
+                if 0 <= new_i < m and 0 <=new_j<n and image[new_i][new_j] == cur_color and (new_i, new_j) not in visited:
+                    image[new_i][new_j] = newColor
+                    q.append((new_i, new_j))
+                    
+        return image
