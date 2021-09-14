@@ -17,32 +17,69 @@ class Node:
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
-        def helper(node):
-            nonlocal first, last
-            if not node:
-                return node
-            
-            helper(node.left)
-
-            if last:
-                last.right = node
-                node.left = last
-
-            else:
-                first = node
-
-            last = node
-            helper(node.right)
-        
-        
         if not root:
             return root
         
+        stack = []
+        curr = root
+        head = Node(None)
+        prev = None
+        
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+                
+            curr = stack.pop()
+            if not head.right:
+                head.right = curr
+                
+            if prev:
+                prev.right = curr
+                curr.left = prev
+                
+            prev = curr
+            curr = curr.right
+            
+        prev.right = head.right
+        head.right.left = prev
+            
+        return head.right
+
+
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        def helper(node):
+            """
+            Performs standard inorder traversal:
+            left -> node -> right
+            and links all nodes into DLL
+            """
+            nonlocal last, first
+            if node:
+                # left
+                helper(node.left)
+                # node 
+                if last:
+                    # link the previous node (last)
+                    # with the current one (node)
+                    last.right = node
+                    node.left = last
+                else:
+                    # keep the smallest node
+                    # to close DLL later on
+                    first = node        
+                last = node
+                # right
+                helper(node.right)
+        
+        if not root:
+            return None
+        
+        # the smallest (first) and the largest (last) nodes
         first, last = None, None
-        
         helper(root)
-        
+        # close DLL
         last.right = first
         first.left = last
-        
         return first
