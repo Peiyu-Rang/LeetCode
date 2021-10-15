@@ -39,3 +39,77 @@ class Solution:
         visiting[currCourse] = False
         visited[currCourse] = True
         return res
+    
+    
+    
+    
+
+class GNode:
+    def __init__(self):
+        self.inDegrees = 0
+        self.outNodes = []
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        from collections import defaultdict, deque
+        
+        graph = defaultdict(GNode)
+        
+        totalDeps = 0
+        
+        for relation in prerequisites:
+            nextCourse, prevCourse = relation[0], relation[1]
+            graph[prevCourse].outNodes.append(nextCourse)
+            graph[nextCourse].inDegrees +=1
+            totalDeps +=1
+            
+        q = deque([])
+        
+        for key in graph:
+            if graph[key].inDegrees == 0:
+                q.append(key)
+                
+        removedEdges = 0
+        
+        while q:
+            course = q.popleft()
+            
+            for nextCourse in graph[course].outNodes:
+                graph[nextCourse].inDegrees -=1
+                removedEdges +=1
+                
+                if graph[nextCourse].inDegrees == 0:
+                    q.append(nextCourse)
+                    
+        
+        return removedEdges == totalDeps
+    
+    
+    
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        visited = [False] * numCourses
+        
+        inDegrees = {i:0 for i in range(numCourses)}
+        graph = collections.defaultdict(list)
+        
+        for nextCourse, prevCourse in prerequisites:
+            graph[prevCourse].append(nextCourse)
+            inDegrees[nextCourse] +=1
+        
+        q = deque([])
+        for course in inDegrees:
+            if inDegrees[course] == 0:
+                q.append(course)
+                
+        while q:
+            course = q.popleft()
+            visited[course] = True
+            
+            for nextCourse in graph[course]:
+                inDegrees[nextCourse] -=1
+                if inDegrees[nextCourse] == 0:
+                    q.append(nextCourse)
+                    
+            
+        return all(visited)

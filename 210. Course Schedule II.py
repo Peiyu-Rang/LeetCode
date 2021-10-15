@@ -36,3 +36,33 @@ class Solution:
                         q.append(key)
                         
         return res if len(res) == numCourses else []
+    
+    
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        visited = [False] * numCourses
+        res = []
+        inDegrees = {i:0 for i in range(numCourses)}
+        graph = collections.defaultdict(list)
+        
+        for nextCourse, prevCourse in prerequisites:
+            graph[prevCourse].append(nextCourse)
+            inDegrees[nextCourse] +=1
+        
+        q = deque([])
+        for course in inDegrees:
+            if inDegrees[course] == 0:
+                q.append(course)
+                
+        while q:
+            course = q.popleft()
+            visited[course] = True
+            res.append(course)
+            
+            for nextCourse in graph[course]:
+                inDegrees[nextCourse] -=1
+                if inDegrees[nextCourse] == 0:
+                    q.append(nextCourse)
+                    
+            
+        return res if all(visited) else []

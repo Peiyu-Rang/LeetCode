@@ -57,7 +57,7 @@ class Solution:
         while l1 or l2:
             curr.next = ListNode()
             curr = curr.next
-            if l1 and not l2:
+            if l1 and not l2:   
                 total = l1.val + carry
                 curr.val = total % 10
                 carry = total // 10

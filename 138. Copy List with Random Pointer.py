@@ -88,3 +88,44 @@ class Solution:
                 seen[node].random = seen[node.random]
                 
         return seen[head]
+    
+    
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        
+        pt = head
+        
+        while pt:
+            new_node = Node(pt.val)
+            new_node.next = pt.next
+            pt.next = new_node
+            pt = new_node.next
+            
+        pt = head
+        while pt:
+            pt.next.random = pt.random.next if pt.random else None
+            pt = pt.next.next
+            
+        pt_old = head
+        pt_new = head.next
+        
+        head_new = head.next
+        
+        while pt_old:
+            pt_old.next = pt_old.next.next
+            pt_new.next = pt_new.next.next if pt_new.next else None
+            pt_old = pt_old.next
+            pt_new = pt_new.next
+            
+        return head_new

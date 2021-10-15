@@ -23,3 +23,23 @@ class Solution:
                 else:
                     k -=1
         return res
+
+
+class Solution:
+    def threeSumSmaller(self, nums: List[int], target: int) -> int:
+        count = 0
+        nums.sort()
+        n = len(nums)
+        for i in range(n):
+            j, k = i+1, len(nums)-1
+            while j < k:
+                s = nums[i] + nums[j] + nums[k]
+                if s < target:
+                    # if (i,j,k) works, then (i,j,k), (i,j,k-1),..., 
+                    # (i,j,j+1) all work, totally (k-j) triplets
+                    count += k-j
+                    j += 1
+                else:
+                    k -= 1
+        return count
+        

@@ -12,28 +12,23 @@ Created on Fri Apr 30 09:08:00 2021
 #         self.val = val
 #         self.next = next
 class Solution:
-    def swapPairs(self, head: ListNode) -> ListNode:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next:
             return head
         
-        p = head
-        new_start = p.next
+        dummy = ListNode(0)
+        dummy.next = head
+        cur = dummy
         
-        while True:
-            q = p.next
-            temp = q.next
-            
-            q.next = p
-            
-            if not temp or not temp.next:
-                p.next = temp
-                break
-                
-            p.next = temp.next
-            
-            p = temp
+        while cur.next and cur.next.next:
+            first = cur.next
+            sec = cur.next.next
+            cur.next = sec
+            first.next = sec.next
+            sec.next = first
+            cur = cur.next.next
+        return dummy.next     
         
-        return new_start
     
     
 # Definition for singly-linked list.
