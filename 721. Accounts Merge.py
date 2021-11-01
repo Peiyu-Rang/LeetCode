@@ -34,4 +34,40 @@ class Solution:
                 
                 res.append([em_to_name[email]] + sorted(component))
                 
-        return resa
+        return res
+    
+    
+    
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        p = list(range(10001))
+        
+        def find(x):
+            if x != p[x]:
+                p[x] = find(p[x])
+            
+            return p[x]
+        
+        def union(x, y):
+            p[find(x)] = find(y)
+            
+        em_to_name = {}
+        em_to_id = {}
+        i = 0
+        for acc in accounts:
+            name = acc[0]
+            for email in acc[1:]:
+                em_to_name[email] = name
+                if email not in em_to_id:
+                    em_to_id[email] = i
+                    i +=1
+                
+                union(em_to_id[acc[1]], em_to_id[email])
+                
+        res = collections.defaultdict(list)
+        
+        for email in em_to_name:
+            res[find(em_to_id[email])].append(email)
+            
+        return [[em_to_name[v[0]]] + sorted(v) for v in res.values()]
+            

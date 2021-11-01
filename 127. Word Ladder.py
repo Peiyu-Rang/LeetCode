@@ -34,7 +34,7 @@ class Solution:
                         seen.add(word)
                         queue.append((word, level + 1))
                         
-            word_dict[intermediate_word] = []
+                word_dict[intermediate_word] = []
         return 0
                         
                     
