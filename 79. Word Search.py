@@ -29,3 +29,42 @@ class Solution:
                 if backtrack(i,j, word):
                     return True
         return False
+    
+    
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        m = len(board)
+        n = len(board[0])
+        l = len(word)
+        
+        if not word: return True
+        if not board: return False
+        
+        
+        def backtrack(i, j, idx, board):
+            letter = board[i][j]
+            if letter != word[idx]:
+                return False
+            elif idx == l-1:
+                return True
+            else:
+                board[i][j] = '$'
+                
+                res = False
+                for new_i, new_j in [[i+1, j], [i-1, j], [i, j+1], [i, j-1]]:
+                    if 0 <= new_i < m and 0 <= new_j < n:
+                        if backtrack(new_i, new_j, idx+1, board):
+                            return True
+                
+                board[i][j] = letter
+                return False
+            
+           
+        
+        
+        for i in range(m):
+            for j in range(n):
+                if backtrack(i,j,0, board):
+                    return True
+        
+        return False

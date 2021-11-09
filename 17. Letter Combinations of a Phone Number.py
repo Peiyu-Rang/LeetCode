@@ -23,7 +23,7 @@ class Solution:
         
         def backtrack(idx, comb):
             if len(comb) == n:
-                res.append(comb)
+                res.append(comb[:])
                 return
             
             possible_letters = dic[digits[idx]]
